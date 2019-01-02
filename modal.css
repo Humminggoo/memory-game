@@ -40,13 +40,13 @@
 .modal .winner {
     font-size: 60px;
     text-align: center;
-    font-family: "Anton", sans-serif;
+    font-family: 'Boogaloo', cursive;
     color: #4d4d4d;
     text-shadow: 0px 3px 0 black;
 }
 
 .modal .restart {
-    font-family: "Anton", sans-serif;
+    font-family: 'Boogaloo', cursive;
     margin: 30px auto;
     padding: 20px 30px;
     display: block;
