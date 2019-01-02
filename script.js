@@ -103,7 +103,7 @@ Game.prototype = {
     }
 
 };
-var cards = [
+const cards = [
     {
         img: "./images/Meow_Wow.png",
         id: 1,

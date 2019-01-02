@@ -1,7 +1,3 @@
-@keyframes matchAnimation {
-    0% {background: #bcffcc;}
-    100% {background: white;}
-}
 .card {
     float: left;
     width: 25%;
