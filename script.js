@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', ()=>{
-    let game = new Game(cards);
+    const game = new Game(cards);
     game.setup();
 });
 
@@ -9,39 +9,39 @@ function Game(cards){
     this.modal = document.querySelector('.modal');
     this.restartBtn = document.querySelector('.restart');
     this.cards = cards.concat(cards);
-    this.game.addEventListener("click", this.cardClicked.bind(this));
+    this.game.addEventListener("click", this.handleCardClick.bind(this));
     this.restartBtn.addEventListener("click", this.reset.bind(this));
 }
 Game.prototype = {
     setup: function(){
         this.cards = this.shuffleCards(this.cards);
         this.createLayout(this.cards, this.game);
-        this.paused = false;
+        this.isPaused = false;
         this.guess = null;
     },
     shuffleCards: function(cardsArray){
         return cardsArray.sort(function() { return 0.5 - Math.random() });
     },
     createLayout: function(cardsArray, location){
-        let fragment = document.createDocumentFragment();
+        const fragment = document.createDocumentFragment();
         cardsArray.forEach(item => {
-            let card = document.createElement('div');
+            const card = document.createElement('div');
             card.classList.add('card');
             card.setAttribute('data-id', item.id);
 
-            let inside = document.createElement('div');
+            const inside = document.createElement('div');
             inside.classList.add('inside');
 
-            let frontCard = document.createElement('div');
+            const frontCard = document.createElement('div');
             frontCard.classList.add('front');
 
-            let frontImage = document.createElement('img');
+            const frontImage = document.createElement('img');
             frontImage.setAttribute('src', item.img);
 
-            let backCard = document.createElement('div');
+            const backCard = document.createElement('div');
             backCard.classList.add('back');
 
-            let backImage = document.createElement('img');
+            const backImage = document.createElement('img');
             backImage.setAttribute('src', './images/Symbol.png');
 
             frontCard.appendChild(frontImage);
@@ -58,8 +58,8 @@ Game.prototype = {
             this.game.removeChild(this.game.firstChild);
         }
     },
-    cardClicked: function(e){
-        if(!this.paused && !e.target.classList.contains("matched") && !e.target.classList.contains("picked")){
+    handleCardClick: function(e){
+        if(!this.isPaused && !e.target.classList.contains("matched") && !e.target.classList.contains("picked")){
             e.target.classList.add("picked");
             if(!this.guess){
                 this.guess = e.target;
@@ -69,10 +69,10 @@ Game.prototype = {
                 this.guess = null;
             } else {
                 this.guess = null;
-                this.paused = true;
+                this.isPaused = true;
                 setTimeout(() =>{
                     document.querySelectorAll('.picked').forEach(item => item.classList.remove("picked"));
-                    this.paused = false;
+                    this.isPaused = false;
                 }, 600);
             }
             if(document.querySelectorAll('.matched').length === document.querySelectorAll('.card').length){
@@ -81,7 +81,7 @@ Game.prototype = {
         }
     },
     win: function(){
-        this.paused = true;
+        this.isPaused = true;
         setTimeout(() => {
             this.showModal();
         }, 1000);
